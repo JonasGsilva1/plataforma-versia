@@ -1,11 +1,14 @@
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.http import HttpResponse
 
-def home(request):
-    return HttpResponse("Bem-vindo à plataforma Versia!")
+def inicio(request):
+    return HttpResponse("🏢 Bem-vindo à API Versia!")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', home),
+    path('', inicio),
+    path('api/', include('usuarios.urls')),
+    path('api/', include('cursos.urls')),
+    path('api/', include('progresso.urls')),
 ]
