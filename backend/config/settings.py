@@ -15,7 +15,8 @@ ALLOWED_HOSTS = ['*']
 SHARED_APPS = [
     'django_tenants',
     'django.contrib.contenttypes',
-    'tenants',
+    'empresas',
+    'usuarios',              # ← Aqui
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -27,6 +28,8 @@ SHARED_APPS = [
 TENANT_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
+    'cursos',
+    'progresso',
 ]
 
 INSTALLED_APPS = list(SHARED_APPS) + [
@@ -34,8 +37,10 @@ INSTALLED_APPS = list(SHARED_APPS) + [
     if app not in SHARED_APPS
 ]
 
-TENANT_MODEL = "tenants.Client"
-TENANT_DOMAIN_MODEL = "tenants.Domain"
+TENANT_MODEL = "empresas.Empresa"        
+TENANT_DOMAIN_MODEL = "empresas.Dominio"  
+
+AUTH_USER_MODEL = 'usuarios.Usuario'
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
