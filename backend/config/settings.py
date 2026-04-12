@@ -16,7 +16,7 @@ SHARED_APPS = [
     'django_tenants',
     'django.contrib.contenttypes',
     'empresas',
-    'usuarios',              # ← Aqui
+    'usuarios',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.sessions',
@@ -30,6 +30,9 @@ TENANT_APPS = [
     'django.contrib.auth',
     'cursos',
     'progresso',
+    'matriculas',    # ← Apenas aqui
+    'materiais',     # ← Apenas aqui
+    'certificados',  # ← Apenas aqui
 ]
 
 INSTALLED_APPS = list(SHARED_APPS) + [

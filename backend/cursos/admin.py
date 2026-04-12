@@ -1,9 +1,15 @@
 from django.contrib import admin
-from .models import Curso, Modulo, Aula
+from .models import Curso, Modulo, Aula, Categoria
+
+@admin.register(Categoria)
+class CategoriaAdmin(admin.ModelAdmin):
+    list_display = ('nome', 'criado_em')
+    search_fields = ('nome',)
 
 @admin.register(Curso)
 class CursoAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'criado_em')
+    list_display = ('titulo', 'categoria', 'nivel', 'carga_horaria', 'ativo', 'criado_em')
+    list_filter = ('nivel', 'ativo', 'categoria')
     search_fields = ('titulo',)
 
 @admin.register(Modulo)
@@ -13,5 +19,5 @@ class ModuloAdmin(admin.ModelAdmin):
 
 @admin.register(Aula)
 class AulaAdmin(admin.ModelAdmin):
-    list_display = ('titulo', 'modulo', 'ordem')
-    list_filter = ('modulo__curso',)
+    list_display = ('titulo', 'modulo', 'tipo', 'duracao', 'ordem')
+    list_filter = ('tipo', 'modulo__curso')
