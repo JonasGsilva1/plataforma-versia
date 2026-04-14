@@ -134,6 +134,10 @@ export function Dashboard() {
             <Award className="w-5 h-5" />
             <span className="font-medium">Certificados</span>
           </Link>
+          <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all">
+            <User className="w-5 h-5" />
+            <span className="font-medium">Perfil</span>
+          </Link>
           <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all w-full">
             <Settings className="w-5 h-5" />
             <span className="font-medium">Configurações</span>
@@ -233,44 +237,6 @@ export function Dashboard() {
           </div>
         </section>
 
-        {/* Stats Cards */}
-        <section className="px-4 md:px-8 py-4">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#63E3FF] to-[#2FA7FF] flex items-center justify-center">
-                  <Target className="w-6 h-6 text-white" />
-                </div>
-                <TrendingUp className="w-5 h-5 text-green-400" />
-              </div>
-              <p className="text-white/60 text-sm mb-1">Cursos em Andamento</p>
-              <p className="text-3xl font-bold text-white">8</p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#7A2CFF] to-[#E548FF] flex items-center justify-center">
-                  <Award className="w-6 h-6 text-white" />
-                </div>
-                <TrendingUp className="w-5 h-5 text-green-400" />
-              </div>
-              <p className="text-white/60 text-sm mb-1">Certificados Obtidos</p>
-              <p className="text-3xl font-bold text-white">12</p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all group">
-              <div className="flex items-center justify-between mb-4">
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-[#2FA7FF] to-[#7A2CFF] flex items-center justify-center">
-                  <Clock className="w-6 h-6 text-white" />
-                </div>
-                <TrendingUp className="w-5 h-5 text-green-400" />
-              </div>
-              <p className="text-white/60 text-sm mb-1">Horas de Aprendizado</p>
-              <p className="text-3xl font-bold text-white">156h</p>
-            </div>
-          </div>
-        </section>
-
         {/* Premium Upgrade Banner (only if not premium) */}
         {!isPremium && (
           <section className="px-4 md:px-8 py-6">
@@ -337,35 +303,40 @@ export function Dashboard() {
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
             {courses.map((course) => (
               <Link key={course.id} to={`/lesson/${course.id}`}>
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all group cursor-pointer">
-                  <div className="relative h-48 overflow-hidden">
-                    <img 
-                      src={course.thumbnail} 
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl overflow-hidden hover:bg-white/10 transition-all group cursor-pointer">
+                  <div className="relative h-40 md:h-48 overflow-hidden">
+                    <img
+                      src={course.thumbnail}
                       alt={course.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
-                    <div className="absolute top-4 left-4">
-                      <span className="bg-[#7A2CFF]/80 backdrop-blur-sm px-3 py-1 rounded-full text-xs font-semibold text-white">
+                    <div className="absolute top-3 left-3 md:top-4 md:left-4">
+                      <span className="bg-[#7A2CFF]/80 backdrop-blur-sm px-2 md:px-3 py-1 rounded-full text-xs font-semibold text-white">
                         {course.category}
                       </span>
                     </div>
+                    {course.isPremium && (
+                      <div className="absolute top-3 right-3 md:top-4 md:right-4">
+                        <PremiumBadge variant="small" />
+                      </div>
+                    )}
                   </div>
-                  <div className="p-6">
-                    <h4 className="text-lg font-semibold text-white mb-2">{course.title}</h4>
-                    <p className="text-white/60 text-sm mb-4">{course.instructor}</p>
-                    <div className="flex items-center justify-between mb-3">
-                      <span className="text-white/60 text-sm flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                  <div className="p-4 md:p-6">
+                    <h4 className="text-base md:text-lg font-semibold text-white mb-1 md:mb-2">{course.title}</h4>
+                    <p className="text-white/60 text-xs md:text-sm mb-3 md:mb-4">{course.instructor}</p>
+                    <div className="flex items-center justify-between mb-2 md:mb-3">
+                      <span className="text-white/60 text-xs md:text-sm flex items-center gap-1">
+                        <Clock className="w-3 md:w-4 h-3 md:h-4" />
                         {course.duration}
                       </span>
-                      <span className="text-[#63E3FF] text-sm font-semibold">{course.progress}%</span>
+                      <span className="text-[#63E3FF] text-xs md:text-sm font-semibold">{course.progress}%</span>
                     </div>
-                    <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div 
+                    <div className="w-full h-1.5 md:h-2 bg-white/10 rounded-full overflow-hidden">
+                      <div
                         className="h-full bg-gradient-to-r from-[#63E3FF] to-[#7A2CFF]"
                         style={{ width: `${course.progress}%` }}
                       ></div>
@@ -431,32 +402,32 @@ export function Dashboard() {
               <ChevronRight className="w-4 h-4" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 md:gap-6">
             {newCourses.map((course) => (
               <Link key={course.id} to={`/course/${course.id}`}>
-                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl overflow-hidden hover:bg-white/10 transition-all group cursor-pointer">
-                  <div className="relative h-56 overflow-hidden">
-                    <img 
-                      src={course.thumbnail} 
+                <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl overflow-hidden hover:bg-white/10 transition-all group cursor-pointer">
+                  <div className="relative h-44 md:h-56 overflow-hidden">
+                    <img
+                      src={course.thumbnail}
                       alt={course.title}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent"></div>
-                    <div className="absolute top-4 right-4">
-                      <span className="bg-[#63E3FF] px-3 py-1 rounded-full text-xs font-bold text-black">
+                    <div className="absolute top-3 right-3 md:top-4 md:right-4">
+                      <span className="bg-[#63E3FF] px-2 md:px-3 py-1 rounded-full text-xs font-bold text-black">
                         {course.badge}
                       </span>
                     </div>
                   </div>
-                  <div className="p-6">
+                  <div className="p-4 md:p-6">
                     <span className="bg-[#2FA7FF]/20 text-[#63E3FF] px-2 py-1 rounded-md text-xs font-semibold mb-2 inline-block">
                       {course.category}
                     </span>
-                    <h4 className="text-lg font-semibold text-white mb-2">{course.title}</h4>
-                    <p className="text-white/60 text-sm mb-4">{course.instructor}</p>
+                    <h4 className="text-base md:text-lg font-semibold text-white mb-1 md:mb-2">{course.title}</h4>
+                    <p className="text-white/60 text-xs md:text-sm mb-3 md:mb-4">{course.instructor}</p>
                     <div className="flex items-center gap-4">
-                      <span className="text-white/60 text-sm flex items-center gap-1">
-                        <Clock className="w-4 h-4" />
+                      <span className="text-white/60 text-xs md:text-sm flex items-center gap-1">
+                        <Clock className="w-3 md:w-4 h-3 md:h-4" />
                         {course.duration}
                       </span>
                     </div>

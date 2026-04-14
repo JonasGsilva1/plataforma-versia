@@ -143,6 +143,10 @@ export function Courses() {
             <Award className="w-5 h-5" />
             <span className="font-medium">Certificados</span>
           </Link>
+          <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all">
+            <User className="w-5 h-5" />
+            <span className="font-medium">Perfil</span>
+          </Link>
           <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all w-full">
             <Settings className="w-5 h-5" />
             <span className="font-medium">Configurações</span>

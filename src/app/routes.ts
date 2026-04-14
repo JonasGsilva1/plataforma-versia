@@ -8,6 +8,7 @@ import { Course } from "./pages/Course";
 import { Lesson } from "./pages/Lesson";
 import { Certificate } from "./pages/Certificate";
 import { Subscription } from "./pages/Subscription";
+import { Profile } from "./pages/Profile";
 
 export const router = createBrowserRouter([
   {
@@ -45,5 +46,9 @@ export const router = createBrowserRouter([
   {
     path: "/subscription",
     Component: Subscription,
+  },
+  {
+    path: "/profile",
+    Component: Profile,
   },
 ]);
