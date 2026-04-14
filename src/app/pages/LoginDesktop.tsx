@@ -1,6 +1,6 @@
 import { Link } from "react-router";
-import { VersiaLogo } from "../components/VersiaLogo";
-import { Sparkles, Award, ArrowLeft } from "lucide-react";
+import { VersiaLoginLogo } from "../components/VersiaLoginLogo";
+import { ArrowLeft } from "lucide-react";
 
 export function LoginDesktop() {
   return (
@@ -18,41 +18,22 @@ export function LoginDesktop() {
         <div className="absolute inset-0" style={{
           backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(99, 227, 255, 0.15) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(229, 72, 255, 0.15) 0%, transparent 50%)',
         }}></div>
-        
+
         {/* Gradient separator - smooth transition to right side */}
         <div className="absolute top-0 right-0 bottom-0 w-32 bg-gradient-to-r from-transparent to-[#050505] z-10"></div>
-        
+
         {/* Content */}
-        <div className="relative z-10 flex flex-col justify-between p-16 w-full">
+        <div className="relative z-10 flex flex-col justify-center p-16 w-full">
           <div>
-            <VersiaLogo size="lg" />
-            
-            <div className="mt-16 max-w-md">
-              <h1 className="text-5xl font-bold text-white mb-6 leading-tight">
+            <VersiaLoginLogo size="lg" />
+
+            <div className="mt-12 max-w-md">
+              <h1 className="text-3xl font-bold text-white mb-6 leading-tight">
                 Transforme o aprendizado da sua empresa
               </h1>
               <p className="text-xl text-white/70 leading-relaxed">
                 Plataforma com experiência imersiva e foco em retenção de conhecimento.
               </p>
-            </div>
-          </div>
-
-          {/* Feature Cards */}
-          <div className="grid grid-cols-2 gap-4 max-w-md">
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#63E3FF] to-[#2FA7FF] flex items-center justify-center mb-3">
-                <Sparkles className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-white font-semibold mb-1">Interface </h3>
-              <p className="text-white/60 text-sm">Interface intuitiva</p>
-            </div>
-
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 hover:bg-white/10 transition-all">
-              <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-[#7A2CFF] to-[#E548FF] flex items-center justify-center mb-3">
-                <Award className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-white font-semibold mb-1">Aprendizagem Contínua</h3>
-              <p className="text-white/60 text-sm">Engajamento e retenção garantidos</p>
             </div>
           </div>
         </div>
@@ -62,7 +43,7 @@ export function LoginDesktop() {
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8">
         <div className="w-full max-w-md">
           <div className="lg:hidden mb-12 flex justify-center">
-            <VersiaLogo size="md" />
+            <VersiaLoginLogo size="md" />
           </div>
 
           <div className="mb-8">

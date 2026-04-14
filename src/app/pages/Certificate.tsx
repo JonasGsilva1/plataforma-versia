@@ -127,6 +127,10 @@ export function Certificate() {
             <Award className="w-5 h-5" />
             <span className="font-medium">Certificados</span>
           </Link>
+          <Link to="/profile" className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all">
+            <User className="w-5 h-5" />
+            <span className="font-medium">Perfil</span>
+          </Link>
           <button className="flex items-center gap-3 px-4 py-3 rounded-xl text-white/60 hover:text-white hover:bg-white/5 mb-2 transition-all w-full">
             <Settings className="w-5 h-5" />
             <span className="font-medium">Configurações</span>
@@ -175,19 +179,19 @@ export function Certificate() {
         </header>
 
         {/* Stats Cards */}
-        <section className="px-4 md:px-8 py-6 md:py-8">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-6">
+        <section className="px-4 md:px-8 py-4 md:py-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-6">
             {stats.map((stat, index) => (
-              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6 hover:bg-white/10 transition-all group">
-                <div className="flex items-center justify-between mb-3 md:mb-4">
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center">
-                    <stat.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+              <div key={index} className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-3 md:p-6 hover:bg-white/10 transition-all group">
+                <div className="flex items-center justify-between mb-2 md:mb-4">
+                  <div className="w-8 h-8 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center">
+                    <stat.icon className="w-4 h-4 md:w-6 md:h-6 text-white" />
                   </div>
-                  <TrendingUp className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
+                  <TrendingUp className="w-3 h-3 md:w-5 md:h-5 text-green-400" />
                 </div>
-                <p className="text-white/60 text-xs md:text-sm mb-1">{stat.label}</p>
-                <p className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-2">{stat.value}</p>
-                <p className="text-xs text-green-400">{stat.change}</p>
+                <p className="text-white/60 text-[10px] md:text-sm mb-0.5 md:mb-1 leading-tight">{stat.label}</p>
+                <p className="text-xl md:text-3xl font-bold text-white mb-0.5 md:mb-2">{stat.value}</p>
+                <p className="text-[10px] md:text-xs text-green-400">{stat.change}</p>
               </div>
             ))}
           </div>
@@ -265,20 +269,20 @@ export function Certificate() {
               </div>
 
               {/* Actions */}
-              <div className="bg-black/40 p-4 md:p-6 flex flex-col md:flex-row items-center justify-between gap-3">
+              <div className="bg-black/40 p-3 md:p-6 flex flex-col md:flex-row items-center justify-between gap-2 md:gap-3">
                 <p className="text-white/60 text-xs md:text-sm">Emitido em 15 de Março, 2026</p>
-                <div className="flex items-center gap-3 w-full md:w-auto">
-                  <button className="flex-1 md:flex-none px-4 py-2 rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all flex items-center justify-center gap-2 text-sm">
-                    <Share2 className="w-4 h-4" />
-                    <span className="hidden sm:inline">Compartilhar</span>
+                <div className="flex items-center gap-2 md:gap-3 w-full md:w-auto">
+                  <button className="flex-1 md:flex-none px-3 md:px-4 py-2 rounded-lg md:rounded-xl bg-white/5 border border-white/10 text-white hover:bg-white/10 transition-all flex items-center justify-center gap-1.5 md:gap-2 text-xs md:text-sm">
+                    <Share2 className="w-3 md:w-4 h-3 md:h-4" />
+                    <span>Compartilhar</span>
                   </button>
-                  <button className="flex-1 md:flex-none px-4 py-2 rounded-xl font-semibold text-white shadow-lg transition-all flex items-center justify-center gap-2 text-sm"
+                  <button className="flex-1 md:flex-none px-3 md:px-4 py-2 rounded-lg md:rounded-xl font-semibold text-white shadow-lg transition-all flex items-center justify-center gap-1.5 md:gap-2 text-xs md:text-sm"
                     style={{
                       background: 'linear-gradient(135deg, #63E3FF 0%, #2FA7FF 30%, #7A2CFF 65%, #E548FF 100%)',
                     }}
                   >
-                    <Download className="w-4 h-4" />
-                    <span className="hidden sm:inline">Baixar PDF</span>
+                    <Download className="w-3 md:w-4 h-3 md:h-4" />
+                    <span>Baixar PDF</span>
                   </button>
                 </div>
               </div>
@@ -324,26 +328,26 @@ export function Certificate() {
           {/* Right Column - Badges & Timeline */}
           <div className="space-y-6 md:space-y-8">
             {/* Badges */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6">
-              <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6">Badges Conquistadas</h3>
-              <div className="grid grid-cols-2 gap-3 md:gap-4">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6">
+              <h3 className="text-base md:text-xl font-bold text-white mb-3 md:mb-6">Badges Conquistadas</h3>
+              <div className="grid grid-cols-2 gap-2 md:gap-4">
                 {badges.map((badge, index) => (
-                  <div 
-                    key={index} 
-                    className={`relative p-3 md:p-4 rounded-xl border transition-all ${ 
-                      badge.earned 
-                        ? 'bg-white/5 border-white/10 hover:bg-white/10' 
+                  <div
+                    key={index}
+                    className={`relative p-2.5 md:p-4 rounded-lg md:rounded-xl border transition-all ${
+                      badge.earned
+                        ? 'bg-white/5 border-white/10 hover:bg-white/10'
                         : 'bg-white/5 border-white/10 opacity-40'
                     }`}
                   >
-                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl bg-gradient-to-br ${badge.color} flex items-center justify-center mb-2 md:mb-3`}>
-                      <badge.icon className="w-5 h-5 md:w-6 md:h-6 text-white" />
+                    <div className={`w-9 h-9 md:w-12 md:h-12 rounded-lg md:rounded-xl bg-gradient-to-br ${badge.color} flex items-center justify-center mb-1.5 md:mb-3`}>
+                      <badge.icon className="w-4 h-4 md:w-6 md:h-6 text-white" />
                     </div>
-                    <h4 className="text-white text-xs md:text-sm font-semibold mb-1">{badge.name}</h4>
-                    <p className="text-white/60 text-xs leading-relaxed">{badge.description}</p>
+                    <h4 className="text-white text-[11px] md:text-sm font-semibold mb-0.5 md:mb-1 leading-tight">{badge.name}</h4>
+                    <p className="text-white/60 text-[10px] md:text-xs leading-tight md:leading-relaxed">{badge.description}</p>
                     {badge.earned && (
-                      <div className="absolute top-2 right-2">
-                        <CheckCircle2 className="w-4 h-4 md:w-5 md:h-5 text-green-400" />
+                      <div className="absolute top-1.5 right-1.5 md:top-2 md:right-2">
+                        <CheckCircle2 className="w-3 h-3 md:w-5 md:h-5 text-green-400" />
                       </div>
                     )}
                   </div>
@@ -352,38 +356,38 @@ export function Certificate() {
             </div>
 
             {/* Timeline */}
-            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-4 md:p-6">
-              <h3 className="text-lg md:text-xl font-bold text-white mb-4 md:mb-6">Histórico Recente</h3>
-              <div className="space-y-4 md:space-y-6">
+            <div className="bg-white/5 backdrop-blur-sm border border-white/10 rounded-xl md:rounded-2xl p-4 md:p-6">
+              <h3 className="text-base md:text-xl font-bold text-white mb-3 md:mb-6">Histórico Recente</h3>
+              <div className="space-y-3 md:space-y-6">
                 {timeline.map((item, index) => (
-                  <div key={index} className="flex gap-3 md:gap-4">
+                  <div key={index} className="flex gap-2 md:gap-4">
                     <div className="flex flex-col items-center">
-                      <div className={`w-8 h-8 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
-                        item.type === 'certificate' 
-                          ? 'bg-gradient-to-br from-[#63E3FF] to-[#2FA7FF]' 
+                      <div className={`w-7 h-7 md:w-10 md:h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                        item.type === 'certificate'
+                          ? 'bg-gradient-to-br from-[#63E3FF] to-[#2FA7FF]'
                           : item.type === 'badge'
                           ? 'bg-gradient-to-br from-[#7A2CFF] to-[#E548FF]'
                           : 'bg-white/10'
                       }`}>
                         {item.type === 'certificate' ? (
-                          <Award className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                          <Award className="w-3 h-3 md:w-5 md:h-5 text-white" />
                         ) : item.type === 'badge' ? (
-                          <Trophy className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                          <Trophy className="w-3 h-3 md:w-5 md:h-5 text-white" />
                         ) : (
-                          <BookOpen className="w-4 h-4 md:w-5 md:h-5 text-white" />
+                          <BookOpen className="w-3 h-3 md:w-5 md:h-5 text-white" />
                         )}
                       </div>
                       {index < timeline.length - 1 && (
-                        <div className="w-px h-full bg-white/10 mt-2"></div>
+                        <div className="w-px h-full bg-white/10 mt-1.5 md:mt-2"></div>
                       )}
                     </div>
-                    <div className="flex-1 pb-4 md:pb-6">
-                      <div className="flex items-center gap-2 mb-1">
+                    <div className="flex-1 pb-3 md:pb-6">
+                      <div className="flex items-center gap-1.5 md:gap-2 mb-0.5 md:mb-1">
                         <Calendar className="w-3 h-3 md:w-4 md:h-4 text-white/40" />
-                        <span className="text-white/40 text-xs">{item.date}</span>
+                        <span className="text-white/40 text-[10px] md:text-xs">{item.date}</span>
                       </div>
-                      <p className="text-white font-medium mb-1 text-sm md:text-base">{item.event}</p>
-                      <p className="text-white/60 text-xs md:text-sm">{item.course}</p>
+                      <p className="text-white font-medium mb-0.5 md:mb-1 text-xs md:text-base">{item.event}</p>
+                      <p className="text-white/60 text-[11px] md:text-sm">{item.course}</p>
                     </div>
                   </div>
                 ))}
