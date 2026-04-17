@@ -16,7 +16,7 @@ export function VersiaLoginLogo({ className = "", size = "md" }: { className?: s
   return (
     <div className={`flex items-center ${className}`}>
       <img
-        src={logoImage}
+        src={logoImage.src}
         alt="Versia V"
         className={`${logoSizes[size]} object-contain -mr-8 md:-mr-10`}
       />

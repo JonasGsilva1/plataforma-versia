@@ -11,7 +11,7 @@ export function VersiaLogo({ className = "", size = "md" }: { className?: string
   return (
     <div className={`flex items-center ${className}`}>
       <img 
-        src={logoImage} 
+        src={logoImage.src} 
         alt="Versia" 
         className={`${sizes[size].width} ${sizes[size].height} object-contain`}
       />
