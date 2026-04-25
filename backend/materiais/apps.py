@@ -1,6 +1,7 @@
 from django.apps import AppConfig
 
-class MatriculasConfig(AppConfig):
+
+class MateriaisConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'matriculas'
-    verbose_name = 'Matrículas'
+    name = 'materiais'
+    verbose_name = 'Materiais'

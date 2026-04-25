@@ -1,5 +1,6 @@
 from pathlib import Path
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 
 load_dotenv()
@@ -12,6 +13,7 @@ DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['*']
 
+# ===== DJANGO TENANTS =====
 SHARED_APPS = [
     'django_tenants',
     'django.contrib.contenttypes',
@@ -23,6 +25,8 @@ SHARED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+    'corsheaders',
 ]
 
 TENANT_APPS = [
@@ -30,9 +34,9 @@ TENANT_APPS = [
     'django.contrib.auth',
     'cursos',
     'progresso',
-    'matriculas',    # ← Apenas aqui
-    'materiais',     # ← Apenas aqui
-    'certificados',  # ← Apenas aqui
+    'matriculas',
+    'materiais',
+    'certificados',
 ]
 
 INSTALLED_APPS = list(SHARED_APPS) + [
@@ -40,13 +44,14 @@ INSTALLED_APPS = list(SHARED_APPS) + [
     if app not in SHARED_APPS
 ]
 
-TENANT_MODEL = "empresas.Empresa"        
-TENANT_DOMAIN_MODEL = "empresas.Dominio"  
+TENANT_MODEL = "empresas.Empresa"
+TENANT_DOMAIN_MODEL = "empresas.Dominio"
 
 AUTH_USER_MODEL = 'usuarios.Usuario'
 
 MIDDLEWARE = [
     'django_tenants.middleware.main.TenantMainMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -57,6 +62,7 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'config.urls'
+PUBLIC_SCHEMA_URLCONF = 'config.urls_public'
 
 TEMPLATES = [
     {
@@ -106,23 +112,30 @@ USE_TZ = True
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#JWT
-from datetime import timedelta
-
+# ===== JWT =====
 SIMPLE_JWT = {
-    'TEMPO_VIDA_TOKEN': timedelta(hours=8),
-    'ACESS_TOKEN_LIFETIME': timedelta(hours=8),
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=8),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }
 
+# ===== DRF =====
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated'
-    )
+        'rest_framework.permissions.IsAuthenticated',
+    ),
 }
+
+# ===== CORS (dev) =====
+CORS_ALLOW_ALL_ORIGINS = DEBUG
+CORS_ALLOW_CREDENTIALS = True
