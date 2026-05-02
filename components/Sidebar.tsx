@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { VersiaLogo } from "./VersiaLogo";
-import { Home, BookOpen, Award, Settings, User } from "lucide-react";
+import { Home, BookOpen, Award, Settings } from "lucide-react";
+import { UserProfileMini } from "./UserProfileMini";
+import { LogoutButton } from "./LogoutButton";
 
 interface SidebarProps {
   currentPage: "dashboard" | "courses" | "certificate" | "lesson";
@@ -56,15 +58,8 @@ export function Sidebar({ currentPage, showMobile }: SidebarProps) {
       </nav>
 
       <div className="border-t border-white/5 pt-4">
-        <div className="flex items-center gap-3 px-4 py-3">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center">
-            <User className="w-5 h-5 text-white" />
-          </div>
-          <div>
-            <p className="text-white text-sm font-medium">João Silva</p>
-            <p className="text-white/40 text-xs">joao.silva@empresa.com</p>
-          </div>
-        </div>
+        <UserProfileMini />
+        <LogoutButton />
       </div>
     </aside>
   );

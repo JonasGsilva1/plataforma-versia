@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { VersiaLogo } from "../../components/VersiaLogo";
+import { UserProfileMini, USER_PROFILE_IMAGE } from "../../components/UserProfileMini";
+import { LogoutButton } from "../../components/LogoutButton";
 import {
   Home,
   BookOpen,
@@ -90,15 +92,8 @@ export default function ProfilePage() {
         </nav>
 
         <div className="border-t border-white/5 pt-4">
-          <div className="flex items-center gap-3 px-4 py-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center">
-              <User className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white text-sm font-medium">João Silva</p>
-              <p className="text-white/40 text-xs">joao.silva@empresa.com</p>
-            </div>
-          </div>
+          <UserProfileMini />
+          <LogoutButton />
         </div>
       </aside>
 
@@ -145,21 +140,23 @@ export default function ProfilePage() {
             <div className="px-6 md:px-8 pb-6 md:pb-8">
               <div className="flex flex-col md:flex-row items-center md:items-end gap-4 -mt-12 md:-mt-16">
                 <div className="relative">
-                  <div className="w-24 h-24 md:w-32 md:h-32 rounded-2xl bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center border-4 border-[#050505]">
-                    <User className="w-12 h-12 md:w-16 md:h-16 text-white" />
-                  </div>
+                  <img
+                    src={USER_PROFILE_IMAGE}
+                    alt="Daniel Augusto"
+                    className="w-24 h-24 md:w-32 md:h-32 rounded-2xl object-cover border-4 border-[#050505]"
+                  />
                   <button className="absolute bottom-0 right-0 w-8 h-8 md:w-10 md:h-10 rounded-lg bg-[#63E3FF] flex items-center justify-center hover:bg-[#2FA7FF] transition-all">
                     <Camera className="w-4 h-4 md:w-5 md:h-5 text-white" />
                   </button>
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">João Silva</h2>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">Daniel Augusto</h2>
                   <p className="text-white/70 text-sm md:text-base mb-3">Analista de Dados • Versia Learning Platform</p>
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4 text-xs md:text-sm text-white/60">
                     <div className="flex items-center gap-1.5">
                       <Mail className="w-4 h-4" />
-                      <span>joao.silva@empresa.com</span>
+                      <span>daniel.augusto@empresa.com</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
@@ -213,11 +210,11 @@ export default function ProfilePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Nome Completo</label>
-                  <p className="text-white font-medium">João Silva</p>
+                  <p className="text-white font-medium">Daniel Augusto</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Email</label>
-                  <p className="text-white font-medium">joao.silva@empresa.com</p>
+                  <p className="text-white font-medium">daniel.augusto@empresa.com</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Telefone</label>

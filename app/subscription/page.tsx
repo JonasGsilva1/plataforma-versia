@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { VersiaLogo } from "../../components/VersiaLogo";
 import { PremiumBadge } from "../../components/PremiumBadge";
+import { LogoutButton } from "../../components/LogoutButton";
 import { 
   Crown,
   Check,
@@ -184,6 +185,7 @@ export default function SubscriptionPage() {
                     <span className="hidden sm:inline">Dashboard</span>
                   </button>
                 </Link>
+                <LogoutButton variant="header" />
               </div>
             </div>
           </div>

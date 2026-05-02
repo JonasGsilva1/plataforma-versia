@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { UserProfileMini } from "@/components/UserProfileMini";
+import { LogoutButton } from "@/components/LogoutButton";
 import { 
   Play,
   Pause,
@@ -275,6 +277,11 @@ export default function LessonPage() {
                     ))}
                   </div>
                 </div>
+              </div>
+
+              <div className="border-t border-white/10 p-4">
+                <UserProfileMini />
+                <LogoutButton />
               </div>
             </aside>
           </>

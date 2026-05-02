@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { VersiaLogo } from "../../components/VersiaLogo";
+import { UserProfileMini } from "../../components/UserProfileMini";
+import { LogoutButton } from "../../components/LogoutButton";
 import { 
   Home, 
   BookOpen, 
@@ -140,15 +142,8 @@ export default function CertificatePage() {
         </nav>
 
         <div className="border-t border-white/5 pt-4">
-          <div className="flex items-center gap-3 px-4 py-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#63E3FF] to-[#7A2CFF] flex items-center justify-center">
-              <User className="w-5 h-5 text-white" />
-            </div>
-            <div>
-              <p className="text-white text-sm font-medium">João Silva</p>
-              <p className="text-white/40 text-xs">joao.silva@empresa.com</p>
-            </div>
-          </div>
+          <UserProfileMini />
+          <LogoutButton />
         </div>
       </aside>
 
@@ -238,7 +233,7 @@ export default function CertificatePage() {
                   <div className="text-center mb-6 md:mb-8">
                     <p className="text-white/60 mb-3 md:mb-4 text-sm md:text-base">Este documento certifica que</p>
                     <h3 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-[#63E3FF] via-[#2FA7FF] to-[#7A2CFF] bg-clip-text text-transparent mb-3 md:mb-4">
-                      João Silva
+                      Daniel Augusto
                     </h3>
                     <p className="text-white/60 mb-2 text-sm md:text-base">concluiu com sucesso o curso</p>
                     <h4 className="text-lg md:text-2xl font-bold text-white mb-4 md:mb-6">Compliance e Ética Empresarial</h4>
