@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-
-
 
   ## Running the code
 
@@ -39,4 +36,3 @@ pnpm start
 ---
 
 **© 2026 Versia** - Plataforma de Treinamento 
->>>>>>> f1459b46bfb723f7de1e68077649dd20a5526fb1
