@@ -1,15 +1,9 @@
 import Link from "next/link";
 import { VersiaLoginLogo } from "../../components/VersiaLoginLogo";
-import { ArrowLeft } from "lucide-react";
 
 export default function LoginMobilePage() {
   return (
     <div className="min-h-screen bg-[#050505] flex flex-col overflow-hidden">
-      {/* Back Button */}
-      <Link href="/" className="fixed top-3 left-3 z-50 flex items-center gap-2 px-3 py-2 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 text-white/60 hover:text-white hover:bg-black/60 transition-all">
-        <ArrowLeft className="w-4 h-4" />
-        <span className="text-sm">Voltar</span>
-      </Link>
 
       {/* Header with Branding */}
       <div className="relative overflow-hidden px-6 pt-16 pb-4">
@@ -112,12 +106,6 @@ export default function LoginMobilePage() {
                 </button>
               </Link>
 
-              <button
-                type="button"
-                className="w-full px-6 py-3 rounded-xl font-semibold text-white text-sm border-2 border-white/10 hover:border-[#63E3FF]/50 hover:bg-white/5 active:scale-95 transition-all"
-              >
-                Criar nova conta
-              </button>
             </div>
           </form>
 

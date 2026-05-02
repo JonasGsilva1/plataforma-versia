@@ -2,17 +2,10 @@
 
 import Link from 'next/link';
 import { VersiaLoginLogo } from '../../components/VersiaLoginLogo';
-import { ArrowLeft } from 'lucide-react';
 
 export default function LoginDesktopPage() {
   return (
     <div className="min-h-screen bg-[#050505] flex">
-      {/* Back Button */}
-      <Link href="/" className="fixed top-6 left-6 z-50 flex items-center gap-2 px-4 py-2 rounded-xl bg-black/40 backdrop-blur-xl border border-white/10 text-white/60 hover:text-white hover:bg-black/60 transition-all">
-        <ArrowLeft className="w-4 h-4" />
-        <span className="text-sm">Voltar ao índice</span>
-      </Link>
-
       {/* Left Side - Branding */}
       <div className="hidden lg:flex lg:w-1/2 relative overflow-hidden">
         {/* Gradient Background */}
@@ -121,12 +114,6 @@ export default function LoginDesktopPage() {
                 </button>
               </Link>
 
-              <button
-                type="button"
-                className="w-full px-6 py-4 rounded-xl font-semibold text-white border-2 border-white/10 hover:border-[#63E3FF]/50 hover:bg-white/5 transition-all"
-              >
-                Criar nova conta
-              </button>
             </div>
           </form>
 
