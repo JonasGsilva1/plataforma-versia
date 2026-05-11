@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router";
+import { useCourseData } from "../../lib/hooks";
 import { VersiaLogo } from "../components/VersiaLogo";
 import {
   Home,
@@ -35,67 +36,20 @@ export function Course() {
     );
   };
 
-  const courseData = {
-    title: "Liderança Estratégica 4.0",
-    instructor: {
-      name: "Ana Silva",
-      role: "Especialista em Liderança Corporativa",
-      avatar: "https://images.unsplash.com/photo-1573497491306-c8a68afac6f7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx3b21hbiUyMGJ1c2luZXNzJTIwcHJvZmVzc2lvbmFsJTIwZXhlY3V0aXZlfGVufDF8fHx8MTc3NDIzNDQ4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
-    },
-    thumbnail: "https://images.unsplash.com/photo-1770240366266-57290c83cd5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwZGV2ZWxvcG1lbnQlMjBtZW50b3IlMjBjb2FjaGluZ3xlbnwxfHx8fDE3NzQyMzQ0ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    description: "Desenvolva habilidades de liderança moderna e estratégica para liderar equipes de alto desempenho na era digital. Este curso aborda técnicas avançadas de gestão, comunicação efetiva e tomada de decisão estratégica.",
-    progress: 65,
-    duration: "8h",
-    students: 1240,
-    rating: 4.8,
-    reviews: 342,
-    modules: [
-      {
-        title: "Fundamentos da Liderança Moderna",
-        duration: "2h",
-        lessons: [
-          { id: 1, title: "Introdução à Liderança 4.0", duration: "15min", completed: true },
-          { id: 2, title: "O Papel do Líder na Era Digital", duration: "20min", completed: true },
-          { id: 3, title: "Estilos de Liderança Contemporâneos", duration: "25min", completed: true },
-          { id: 4, title: "Autoconhecimento e Inteligência Emocional", duration: "30min", completed: false },
-        ],
-      },
-      {
-        title: "Comunicação e Influência",
-        duration: "2.5h",
-        lessons: [
-          { id: 5, title: "Comunicação Assertiva", duration: "20min", completed: false },
-          { id: 6, title: "Técnicas de Persuasão", duration: "25min", completed: false },
-          { id: 7, title: "Feedback Construtivo", duration: "30min", completed: false },
-          { id: 8, title: "Gestão de Conflitos", duration: "35min", completed: false },
-        ],
-      },
-      {
-        title: "Gestão de Equipes de Alto Desempenho",
-        duration: "2h",
-        lessons: [
-          { id: 9, title: "Construindo Equipes Eficazes", duration: "25min", completed: false },
-          { id: 10, title: "Motivação e Engajamento", duration: "30min", completed: false },
-          { id: 11, title: "Delegação Estratégica", duration: "20min", completed: false },
-          { id: 12, title: "Cultura Organizacional", duration: "25min", completed: false },
-        ],
-      },
-      {
-        title: "Tomada de Decisão Estratégica",
-        duration: "1.5h",
-        lessons: [
-          { id: 13, title: "Análise e Resolução de Problemas", duration: "30min", completed: false },
-          { id: 14, title: "Pensamento Estratégico", duration: "25min", completed: false },
-          { id: 15, title: "Gestão de Riscos", duration: "20min", completed: false },
-          { id: 16, title: "Projeto Final", duration: "15min", completed: false },
-        ],
-      },
-    ],
-  };
+  const { data: courseData, loading, erro } = useCourseData(id);
 
-  const totalLessons = courseData.modules.reduce((acc, module) => acc + module.lessons.length, 0);
+  if (loading) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white/60">Carregando curso...</div>;
+  }
+
+  if (erro || !courseData) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-red-400">Erro ao carregar curso.</div>;
+  }
+
+  const totalLessons = courseData.modules.reduce((acc: number, module: any) => acc + module.lessons.length, 0);
   const completedLessons = courseData.modules.reduce(
-    (acc, module) => acc + module.lessons.filter(l => l.completed).length, 
+    (acc: number, module: any) => acc + module.lessons.filter((l: any) => l.completed).length, 
+
     0
   );
 

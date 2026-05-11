@@ -1,4 +1,5 @@
 import { Link, useParams } from "react-router";
+import { useLessonData } from "../../lib/hooks";
 import { 
   Play,
   Pause,
@@ -25,20 +26,17 @@ export function Lesson() {
   
   const progress = (currentTime / totalTime) * 100;
 
-  const lessons = [
-    { id: 1, title: "Introdução à Liderança 4.0", duration: "15min", completed: true },
-    { id: 2, title: "O Papel do Líder na Era Digital", duration: "20min", completed: true },
-    { id: 3, title: "Estilos de Liderança Contemporâneos", duration: "25min", completed: true },
-    { id: 4, title: "Autoconhecimento e Inteligência Emocional", duration: "30min", completed: false, current: true },
-    { id: 5, title: "Comunicação Assertiva", duration: "20min", completed: false },
-    { id: 6, title: "Técnicas de Persuasão", duration: "25min", completed: false },
-  ];
+  const { data, loading, erro } = useLessonData(id);
 
-  const materials = [
-    { name: "Slides da Aula.pdf", size: "2.5 MB" },
-    { name: "Exercícios Práticos.pdf", size: "1.2 MB" },
-    { name: "Material Complementar.pdf", size: "3.8 MB" },
-  ];
+  if (loading) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white/60">Carregando aula...</div>;
+  }
+
+  if (erro || !data) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-red-400">Erro ao carregar aula.</div>;
+  }
+
+  const { lesson, lessons, materials, courseTitle, moduleTitle, progress: courseProgress } = data;
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -55,8 +53,8 @@ export function Lesson() {
             <X className="w-5 md:w-6 h-5 md:h-6" />
           </Link>
           <div className="min-w-0">
-            <h1 className="text-white font-semibold text-sm md:text-lg truncate">Autoconhecimento e Inteligência Emocional</h1>
-            <p className="text-white/60 text-xs md:text-sm truncate">Liderança Estratégica 4.0 • Módulo 1</p>
+            <h1 className="text-white font-semibold text-sm md:text-lg truncate">{lesson.title}</h1>
+            <p className="text-white/60 text-xs md:text-sm truncate">{courseTitle} • {moduleTitle}</p>
           </div>
         </div>
         <button
@@ -75,7 +73,7 @@ export function Lesson() {
             {/* Video Thumbnail/Player */}
             <div className="relative w-full h-full max-h-[calc(100vh-200px)] flex items-center justify-center bg-gradient-to-br from-[#050505] to-[#0a0a0a]">
               <img 
-                src="https://images.unsplash.com/photo-1770240366266-57290c83cd5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwZGV2ZWxvcG1lbnQlMjBtZW50b3IlMjBjb2FjaGluZ3xlbnwxfHx8fDE3NzQyMzQ0ODV8MA&ixlib=rb-4.1.0&q=80&w=1080"
+                src={lesson.videoUrl}
                 alt="Video"
                 className="max-w-full max-h-full object-contain"
               />
@@ -205,12 +203,12 @@ export function Lesson() {
                 <div className="p-6 border-b border-white/10">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-white/60 text-sm">Progresso do Curso</span>
-                    <span className="text-[#63E3FF] text-sm font-semibold">65%</span>
+                    <span className="text-[#63E3FF] text-sm font-semibold">{courseProgress}%</span>
                   </div>
                   <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
                     <div 
                       className="h-full bg-gradient-to-r from-[#63E3FF] to-[#7A2CFF]"
-                      style={{ width: '65%' }}
+                      style={{ width: `${courseProgress}%` }}
                     ></div>
                   </div>
                   <p className="text-white/60 text-xs mt-2">3 de 16 aulas concluídas</p>
@@ -218,7 +216,7 @@ export function Lesson() {
 
                 {/* Lessons List */}
                 <div className="p-4">
-                  <h3 className="text-white font-semibold mb-4 px-2">Módulo 1: Fundamentos da Liderança Moderna</h3>
+                  <h3 className="text-white font-semibold mb-4 px-2">{moduleTitle}</h3>
                   <div className="space-y-1">
                     {lessons.map((lesson) => (
                       <Link key={lesson.id} to={`/lesson/${lesson.id}`}>

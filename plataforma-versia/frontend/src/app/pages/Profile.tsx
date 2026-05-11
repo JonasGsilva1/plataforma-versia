@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useProfileData } from "../../lib/hooks";
 import { VersiaLogo } from "../components/VersiaLogo";
 import {
   Home,
@@ -27,26 +28,22 @@ import { useState } from "react";
 export function Profile() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const userStats = [
-    { label: "Cursos em Andamento", value: "8", icon: Target, change: "+2 este mês", color: "from-[#63E3FF] to-[#2FA7FF]" },
-    { label: "Certificados Obtidos", value: "12", icon: Award, change: "+3 este mês", color: "from-[#7A2CFF] to-[#E548FF]" },
-    { label: "Horas de Aprendizado", value: "156h", icon: Clock, change: "+24h este mês", color: "from-[#2FA7FF] to-[#7A2CFF]" },
-    { label: "Sequência Atual", value: "15 dias", icon: Zap, change: "Novo recorde!", color: "from-[#E548FF] to-[#63E3FF]" },
-  ];
+  const { data, loading, erro } = useProfileData();
 
-  const achievements = [
-    { name: "Primeira Conquista", description: "Complete seu primeiro curso", earned: true },
-    { name: "Estudante Dedicado", description: "5 cursos concluídos", earned: true },
-    { name: "Maratonista", description: "10 horas em uma semana", earned: true },
-    { name: "Líder em Formação", description: "Complete trilha de Liderança", earned: false },
-  ];
+  if (loading) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white/60">Carregando perfil...</div>;
+  }
 
-  const recentActivity = [
-    { date: "15 Mar", event: "Concluiu curso", title: "Compliance e Ética Empresarial" },
-    { date: "10 Mar", event: "Iniciou curso", title: "Liderança Estratégica 4.0" },
-    { date: "28 Fev", event: "Obteve certificado", title: "Gestão de Projetos Ágeis" },
-    { date: "20 Fev", event: "Badge conquistada", title: "Estudante Dedicado" },
-  ];
+  if (erro || !data) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-red-400">Erro ao carregar perfil.</div>;
+  }
+
+  const { user: userProfile, stats: userStatsData, achievements, recentActivity } = data;
+  const iconMap: any = { Target, Award, Clock, Zap };
+  const userStats = userStatsData.map((stat: any) => ({
+    ...stat,
+    icon: iconMap[stat.iconName] || Zap,
+  }));
 
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -152,16 +149,16 @@ export function Profile() {
                 </div>
 
                 <div className="flex-1 text-center md:text-left">
-                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">João Silva</h2>
-                  <p className="text-white/70 text-sm md:text-base mb-3">Analista de Dados • Versia Learning Platform</p>
+                  <h2 className="text-2xl md:text-3xl font-bold text-white mb-2">{userProfile.name}</h2>
+                  <p className="text-white/70 text-sm md:text-base mb-3">{userProfile.role}</p>
                   <div className="flex flex-wrap items-center justify-center md:justify-start gap-3 md:gap-4 text-xs md:text-sm text-white/60">
                     <div className="flex items-center gap-1.5">
                       <Mail className="w-4 h-4" />
-                      <span>joao.silva@empresa.com</span>
+                      <span>{userProfile.email}</span>
                     </div>
                     <div className="flex items-center gap-1.5">
                       <Calendar className="w-4 h-4" />
-                      <span>Membro desde Jan 2025</span>
+                      <span>{userProfile.joinedDate}</span>
                     </div>
                   </div>
                 </div>
@@ -211,27 +208,27 @@ export function Profile() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Nome Completo</label>
-                  <p className="text-white font-medium">João Silva</p>
+                  <p className="text-white font-medium">{userProfile.name}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Email</label>
-                  <p className="text-white font-medium">joao.silva@empresa.com</p>
+                  <p className="text-white font-medium">{userProfile.email}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Telefone</label>
-                  <p className="text-white font-medium">+55 11 99999-9999</p>
+                  <p className="text-white font-medium">{userProfile.phone}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Cargo</label>
-                  <p className="text-white font-medium">Analista de Dados</p>
+                  <p className="text-white font-medium">{userProfile.role.split(" • ")[0]}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Departamento</label>
-                  <p className="text-white font-medium">Tecnologia da Informação</p>
+                  <p className="text-white font-medium">{userProfile.department}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Localização</label>
-                  <p className="text-white font-medium">São Paulo, Brasil</p>
+                  <p className="text-white font-medium">{userProfile.location}</p>
                 </div>
               </div>
             </div>
@@ -293,18 +290,18 @@ export function Profile() {
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Áreas de Interesse</label>
                   <div className="flex flex-wrap gap-2">
-                    <span className="px-3 py-1 rounded-full bg-[#63E3FF]/20 text-[#63E3FF] text-sm">Liderança</span>
-                    <span className="px-3 py-1 rounded-full bg-[#7A2CFF]/20 text-[#7A2CFF] text-sm">Tecnologia</span>
-                    <span className="px-3 py-1 rounded-full bg-[#E548FF]/20 text-[#E548FF] text-sm">Data Science</span>
+                    {userProfile.interests.map((interest: string, index: number) => (
+                      <span key={index} className="px-3 py-1 rounded-full bg-white/10 text-white/80 text-sm">{interest}</span>
+                    ))}
                   </div>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Meta de Estudo Semanal</label>
-                  <p className="text-white font-medium">10 horas/semana</p>
+                  <p className="text-white font-medium">{userProfile.studyGoal}</p>
                 </div>
                 <div>
                   <label className="text-white/60 text-sm mb-2 block">Formato Preferido</label>
-                  <p className="text-white font-medium">Vídeo-aulas e exercícios práticos</p>
+                  <p className="text-white font-medium">{userProfile.preferredFormat}</p>
                 </div>
               </div>
             </div>

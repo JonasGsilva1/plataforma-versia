@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useCertificatesData } from "../../lib/hooks";
 import { VersiaLogo } from "../components/VersiaLogo";
 import { 
   Home, 
@@ -23,75 +24,29 @@ import { useState } from "react";
 export function Certificate() {
   const [showMobileMenu, setShowMobileMenu] = useState(false);
   
-  const certificates = [
-    {
-      id: 1,
-      course: "Compliance e Ética Empresarial",
-      date: "15 de Março, 2026",
-      instructor: "Juliana Oliveira",
-      hours: "4h",
-    },
-    {
-      id: 2,
-      course: "Gestão de Projetos Ágeis",
-      date: "28 de Fevereiro, 2026",
-      instructor: "Beatriz Alves",
-      hours: "9h",
-    },
-    {
-      id: 3,
-      course: "Data Analytics Fundamentals",
-      date: "10 de Janeiro, 2026",
-      instructor: "Carlos Mendes",
-      hours: "8h",
-    },
-  ];
+  const { data, loading, erro } = useCertificatesData();
 
-  const badges = [
-    {
-      name: "Primeira Conquista",
-      description: "Complete seu primeiro curso",
-      icon: Trophy,
-      color: "from-yellow-400 to-orange-500",
-      earned: true,
-    },
-    {
-      name: "Estudante Dedicado",
-      description: "5 cursos concluídos",
-      icon: Target,
-      color: "from-[#63E3FF] to-[#2FA7FF]",
-      earned: true,
-    },
-    {
-      name: "Maratonista",
-      description: "10 horas em uma semana",
-      icon: Zap,
-      color: "from-[#7A2CFF] to-[#E548FF]",
-      earned: true,
-    },
-    {
-      name: "Líder em Formação",
-      description: "Complete trilha de Liderança",
-      icon: Award,
-      color: "from-purple-400 to-pink-500",
-      earned: false,
-    },
-  ];
+  if (loading) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white/60">Carregando certificados...</div>;
+  }
 
-  const stats = [
-    { label: "Total de Certificados", value: "12", icon: Award, change: "+3 este mês" },
-    { label: "Horas de Estudo", value: "156h", icon: Target, change: "+24h este mês" },
-    { label: "Cursos Concluídos", value: "12", icon: Trophy, change: "83% concluídos" },
-    { label: "Sequência Atual", value: "15 dias", icon: Zap, change: "Novo recorde!" },
-  ];
+  if (erro || !data) {
+    return <div className="min-h-screen bg-[#050505] flex items-center justify-center text-red-400">Erro ao carregar certificados.</div>;
+  }
 
-  const timeline = [
-    { date: "15 Mar", event: "Certificado obtido", course: "Compliance e Ética", type: "certificate" },
-    { date: "10 Mar", event: "Curso iniciado", course: "Liderança Estratégica 4.0", type: "started" },
-    { date: "28 Fev", event: "Certificado obtido", course: "Gestão de Projetos Ágeis", type: "certificate" },
-    { date: "20 Fev", event: "Badge conquistada", course: "Estudante Dedicado", type: "badge" },
-    { date: "10 Jan", event: "Certificado obtido", course: "Data Analytics", type: "certificate" },
-  ];
+  const { certificates, badges: badgesData, stats: statsData, timeline } = data;
+
+  const iconMap: any = { Trophy, Target, Zap, Award };
+
+  const badges = badgesData.map((b: any) => ({
+    ...b,
+    icon: iconMap[b.iconName] || Trophy,
+  }));
+
+  const stats = statsData.map((s: any) => ({
+    ...s,
+    icon: iconMap[s.iconName] || Trophy,
+  }));
 
   return (
     <div className="min-h-screen bg-[#050505]">

@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { useCoursesList } from "../../lib/hooks";
 import { VersiaLogo } from "../components/VersiaLogo";
 import { 
   Home, 
@@ -22,96 +23,7 @@ export function Courses() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [showMobileMenu, setShowMobileMenu] = useState(false);
 
-  const allCourses = [
-    {
-      id: 1,
-      title: "Liderança Estratégica 4.0",
-      instructor: "Ana Silva",
-      progress: 65,
-      duration: "8h",
-      thumbnail: "https://images.unsplash.com/photo-1770240366266-57290c83cd5f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsZWFkZXJzaGlwJTIwZGV2ZWxvcG1lbnQlMjBtZW50b3IlMjBjb2FjaGluZ3xlbnwxfHx8fDE3NzQyMzQ0ODV8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Liderança",
-      level: "Avançado",
-      students: 1240,
-    },
-    {
-      id: 2,
-      title: "Data Analytics Avançado",
-      instructor: "Carlos Mendes",
-      progress: 30,
-      duration: "12h",
-      thumbnail: "https://images.unsplash.com/photo-1759661966728-4a02e3c6ed91?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxkYXRhJTIwYW5hbHl0aWNzJTIwZGFzaGJvYXJkJTIwdGVjaG5vbG9neXxlbnwxfHx8fDE3NzQxNzc3NTd8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Tecnologia",
-      level: "Intermediário",
-      students: 890,
-    },
-    {
-      id: 3,
-      title: "Cibersegurança Corporativa",
-      instructor: "Roberto Costa",
-      progress: 0,
-      duration: "10h",
-      thumbnail: "https://images.unsplash.com/photo-1768224656445-33d078c250b7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjeWJlcnNlY3VyaXR5JTIwZGlnaXRhbCUyMG5ldHdvcmslMjBzZWN1cml0eXxlbnwxfHx8fDE3NzQyMzQ0ODZ8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Segurança",
-      level: "Avançado",
-      students: 654,
-    },
-    {
-      id: 4,
-      title: "Compliance e Ética Empresarial",
-      instructor: "Juliana Oliveira",
-      progress: 100,
-      duration: "4h",
-      thumbnail: "https://images.unsplash.com/photo-1758691736067-b309ee3ef7b9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb3Jwb3JhdGUlMjBidXNpbmVzcyUyMHRyYWluaW5nJTIwcHJlc2VudGF0aW9ufGVufDF8fHx8MTc3NDIzNDQ4NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Compliance",
-      level: "Básico",
-      students: 2100,
-    },
-    {
-      id: 5,
-      title: "Trabalho em Equipe e Colaboração",
-      instructor: "Marcos Santos",
-      progress: 45,
-      duration: "6h",
-      thumbnail: "https://images.unsplash.com/photo-1769740333462-9a63bfa914bc?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxwcm9mZXNzaW9uYWwlMjB0ZWFtJTIwY29sbGFib3JhdGlvbiUyMG9mZmljZXxlbnwxfHx8fDE3NzQyMDI4ODl8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Soft Skills",
-      level: "Intermediário",
-      students: 1560,
-    },
-    {
-      id: 6,
-      title: "Inteligência Artificial para Negócios",
-      instructor: "Patricia Lima",
-      progress: 0,
-      duration: "15h",
-      thumbnail: "https://images.unsplash.com/photo-1760629863094-5b1e8d1aae74?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhcnRpZmljaWFsJTIwaW50ZWxsaWdlbmNlJTIwcm9ib3QlMjBmdXR1cmlzdGljfGVufDF8fHx8MTc3NDE2NDEyMXww&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "IA",
-      level: "Avançado",
-      students: 780,
-    },
-    {
-      id: 7,
-      title: "Desenvolvimento Full Stack",
-      instructor: "Fernando Rocha",
-      progress: 0,
-      duration: "20h",
-      thumbnail: "https://images.unsplash.com/photo-1672385277648-85eddc237a2b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzb2Z0d2FyZSUyMGRldmVsb3BtZW50JTIwY29kaW5nJTIwcHJvZ3JhbW1pbmd8ZW58MXx8fHwxNzc0MjM0NDg3fDA&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Tecnologia",
-      level: "Intermediário",
-      students: 1120,
-    },
-    {
-      id: 8,
-      title: "Gestão de Projetos Ágeis",
-      instructor: "Beatriz Alves",
-      progress: 15,
-      duration: "9h",
-      thumbnail: "https://images.unsplash.com/photo-1764025130362-0162c3dd2035?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjB0ZWNoJTIwd29ya3NwYWNlJTIwZGlnaXRhbCUyMGxlYXJuaW5nfGVufDF8fHx8MTc3NDIzNDQ4NHww&ixlib=rb-4.1.0&q=80&w=1080",
-      category: "Gestão",
-      level: "Intermediário",
-      students: 945,
-    },
-  ];
+  const { data: allCourses, loading, erro } = useCoursesList();
 
   return (
     <div className="min-h-screen bg-[#050505]">
@@ -249,7 +161,10 @@ export function Courses() {
           </div>
 
           {/* Courses Grid */}
-          <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" : "space-y-4"}>
+          {loading && <div className="text-white/60 mb-8">Carregando cursos...</div>}
+          {erro && <div className="text-red-400 mb-8">{erro}</div>}
+          {!loading && !erro && (
+            <div className={viewMode === "grid" ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6" : "space-y-4"}>
             {allCourses.map((course) => (
               <Link key={course.id} to={`/course/${course.id}`}>
                 {viewMode === "grid" ? (
@@ -348,6 +263,7 @@ export function Courses() {
               </Link>
             ))}
           </div>
+          )}
         </div>
       </main>
     </div>
