@@ -7,8 +7,7 @@ import { Award, BookOpen, Building2, Home, Menu, Settings, User, X } from 'lucid
 import { VersiaLogo } from './VersiaLogo';
 import { UserProfileMini } from './UserProfileMini';
 import { LogoutButton } from './LogoutButton';
-import { DEFAULT_USER, type AppUser } from '@/lib/data';
-import { getCurrentUser } from '@/lib/clientUser';
+import { DEFAULT_USER, getClientUser, type VersiaUser } from '@/lib/clientUser';
 
 type NavItem = {
   href: string;
@@ -28,10 +27,10 @@ const navItems: NavItem[] = [
 export function AppShell({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const [user, setUser] = useState<AppUser>(DEFAULT_USER);
+  const [user, setUser] = useState<VersiaUser>(DEFAULT_USER);
 
   useEffect(() => {
-    setUser(getCurrentUser());
+    setUser(getClientUser());
   }, []);
 
   return (
@@ -77,9 +76,9 @@ export function AppShell({ children }: { children: ReactNode }) {
         </nav>
 
         <div className="rounded-xl bg-white/5 border border-white/10 p-3 mb-4 text-xs text-white/60">
-          {user.type === 'company'
-            ? `Perfil empresarial: ${user.company}`
-            : `Perfil individual: ${user.company}`}
+          {user.role === 'company'
+            ? `Perfil empresarial: ${user.company ?? user.name}`
+            : `Perfil individual: ${user.company ?? 'Versia'}`}
         </div>
 
         <div className="border-t border-white/10 pt-4">
